@@ -1,0 +1,27 @@
+{
+  "name": "playwright",
+  "version": "1.0.0",
+  "description": "playwright-automation",
+  "main": "index.js",
+  "scripts": {
+    "test:chrome": "playwright test --headed --update-snapshots --project=Chrome",
+    "test": "playwright test --headed --update-snapshots",
+    "test:headless": "playwright test --update-snapshots"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olegstat/playwright-demo.git"
+  },
+  "keywords": [
+    "playwright"
+  ],
+  "author": "olegstat",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/olegstat/playwright-demo/issues"
+  },
+  "homepage": "https://github.com/olegstat/playwright-demo#readme",
+  "devDependencies": {
+    "@playwright/test": "^1.14.1"
+  }
+}
