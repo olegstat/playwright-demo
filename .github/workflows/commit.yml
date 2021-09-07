@@ -39,8 +39,11 @@ jobs:
 
       - uses: microsoft/playwright-github-action@v1
 
-      - name: Install Dependencies
+      - name: Install Playwright Dependencies
         run: npx playwright install-deps
+      
+      - name: Install NPM Dependencies
+        run: npm install
         
       - name: Run Tests
         run: npm run test:headless
