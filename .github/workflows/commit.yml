@@ -23,9 +23,12 @@ jobs:
       - name: Install NPM dependencies
         run: |
           npm ci --prefer-offline --no-audit
-      - name: Lint
+      - name: Linter
         run: |
           npm run lint -- \
             --format junit \
             --output-file test-results/eslint/TEST-eslint.xml
+      - name: Run e2e tests
+        run: |
+          npm run test:headless
   
