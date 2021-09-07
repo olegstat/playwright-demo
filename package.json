@@ -5,8 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test:chrome": "playwright test --headed --update-snapshots --project=Chrome --workers 1",
-    "test": "playwright test --headed --update-snapshots",
-    "test:headless": "playwright test --update-snapshots",
+    "test:firefox": "playwright test --headed --update-snapshots --project=Firefox --workers 1",
+    "test:all": "playwright test --headed --update-snapshots",
+    "test:headless:chrome": "playwright test --update-snapshots --project=Chrome --workers 1",
+    "test:headless:firefox": "playwright test --update-snapshots --project=Firefox --workers 1",
+    "test:headless:all": "playwright test --update-snapshots",
     "lint": "node_modules/.bin/eslint ."
   },
   "repository": {

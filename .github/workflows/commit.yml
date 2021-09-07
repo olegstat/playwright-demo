@@ -1,7 +1,7 @@
 name: Commit
 on: [push]
 jobs:
-  test:
+  linter:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -30,8 +30,8 @@ jobs:
             --output-file test-results/eslint/TEST-eslint.xml
   
   e2e-tests:
+    needs: linter
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v2
 
@@ -45,8 +45,11 @@ jobs:
       - name: Install NPM Dependencies
         run: npm install
         
-      - name: Run Tests
-        run: npm run test:headless
+      - name: Run Tests In Chrome
+        run: npm run test:headless:chrome
+      
+        - name: Run Tests In Firefox
+        run: npm run test:headless:firefox
     
             
   

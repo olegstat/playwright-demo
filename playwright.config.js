@@ -2,6 +2,7 @@ const config = {
   testDir: 'e2e',
   timeout: 30000,
   retries: 0,
+  reporter: 'list',
   use: {
     headless: true,
     viewport: {width: 1280, height: 720},
