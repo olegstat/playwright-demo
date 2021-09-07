@@ -48,7 +48,7 @@ jobs:
       - name: Run Tests In Chrome
         run: npm run test:headless:chrome
       
-        - name: Run Tests In Firefox
+      - name: Run Tests In Firefox
         run: npm run test:headless:firefox
     
             
