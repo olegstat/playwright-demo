@@ -4,9 +4,10 @@
   "description": "playwright-automation",
   "main": "index.js",
   "scripts": {
-    "test:chrome": "playwright test --headed --update-snapshots --project=Chrome",
+    "test:chrome": "playwright test --headed --update-snapshots --project=Chrome --workers 1",
     "test": "playwright test --headed --update-snapshots",
-    "test:headless": "playwright test --update-snapshots"
+    "test:headless": "playwright test --update-snapshots",
+    "lint": "node_modules/.bin/eslint ."
   },
   "repository": {
     "type": "git",
@@ -22,6 +23,12 @@
   },
   "homepage": "https://github.com/olegstat/playwright-demo#readme",
   "devDependencies": {
-    "@playwright/test": "^1.14.1"
+    "@playwright/test": "^1.14.1",
+    "eslint": "^7.32.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-import": "^2.24.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^5.1.0"
   }
 }
