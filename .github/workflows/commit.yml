@@ -1,0 +1,10 @@
+name: Commit
+on: [push]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lint
+        run: |
+          npm run lint
+  
