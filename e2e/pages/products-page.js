@@ -3,15 +3,14 @@ const {expect} = require('@playwright/test');
 exports.ProductsPage = class ProductsPage {
   constructor(page) {
     this.page = page;
+
+    this.productsList = '.inventory_list';
+    this.basket = '.shopping_cart_link';
+    this.inventoryContainer = '.inventory_container';
+    this.inventoryItem = '.inventory_item';
+    this.inventoryItemName = '.inventory_item_name';
+    this.inventoryItemPrice = '.inventory_item_price';
   }
-
-
-  productsList = '.inventory_list';
-  basket = '.shopping_cart_link';
-  inventoryContainer = '.inventory_container';
-  inventoryItem = '.inventory_item';
-  inventoryItemName = '.inventory_item_name';
-  inventoryItemPrice = '.inventory_item_price';
 
   async productsToBeVisible() {
     await expect(this.page.locator(this.productsList)).toBeVisible();

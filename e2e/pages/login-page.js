@@ -4,12 +4,12 @@ const {HOME_PAGE_TITLE, USERNAME, PASSWORD} = require('../test-data');
 exports.LoginPage = class LoginPage {
   constructor(page) {
     this.page = page;
-  }
 
-  login = '#user-name';
-  password = '#password';
-  loginButton = '#login-button';
-  errorMessage = '.error-message-container.error';
+    this.login = '#user-name';
+    this.password = '#password';
+    this.loginButton = '#login-button';
+    this.errorMessage = '.error-message-container.error';
+  }
 
   async goto() {
     await this.page.goto('/');
