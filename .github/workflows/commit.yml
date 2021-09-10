@@ -16,7 +16,7 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ~/ .npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.jspon') }}
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
           restore-keys: |
             ${{ runner.os }}-node-
       
@@ -43,7 +43,7 @@ jobs:
         run: npx playwright install-deps
       
       - name: Install NPM Dependencies
-        run: npm install
+        run: npm ci --prefer-offline --no-audit
         
       - name: Run Tests In Chrome
         run: npm run test:headless:chrome
