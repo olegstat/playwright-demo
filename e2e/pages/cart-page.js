@@ -8,7 +8,8 @@ exports.CartPage = class CartPage {
   itemName = '.inventory_item_name';
   itemCartContainer = '.cart_item';
   continueShoppingButton = '#continue_shopping';
-  removeButton = (item) => `//div[contains(text(), '${item}')]/ancestor::div[contains(@class, 'cart_item_label')]/div/button`;
+  removeButton = (item) => `//div[contains(text(),
+   '${item}')]/ancestor::div[contains(@class, 'cart_item_label')]/div/button`;
 
   async checkItemInCart(item) {
     await expect(this.page.locator(this.itemName)).toHaveText(item);
