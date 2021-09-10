@@ -42,6 +42,14 @@ jobs:
       - name: Install Playwright Dependencies
         run: npx playwright install-deps
       
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: ~/ .npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      
       - name: Install NPM Dependencies
         run: npm ci --prefer-offline --no-audit
         
