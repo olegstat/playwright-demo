@@ -1,6 +1,6 @@
 const config = {
   testDir: 'e2e',
-  timeout: 30000,
+  timeout: 10000,
   retries: 0,
   reporter: 'list',
   use: {
@@ -15,7 +15,7 @@ const config = {
       name: 'Chrome',
       use: {
         browserName: 'chromium',
-        viewport: {width: 600, height: 800},
+        viewport: null,
       },
     },
 

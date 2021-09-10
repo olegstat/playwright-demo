@@ -13,4 +13,5 @@ module.exports = {
   'rules': {
     'require-jsdoc': 0,
   },
+  'parser': '@babel/eslint-parser',
 };

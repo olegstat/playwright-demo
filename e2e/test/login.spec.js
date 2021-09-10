@@ -5,7 +5,6 @@ const {ProductsPage} = require('../pages/products-page');
 test.describe.serial('Login page:', () => {
   let page;
   let loginPage;
-  let productsPage;
 
   test.beforeAll(async ({browser}) => {
     page = await browser.newPage();
@@ -33,8 +32,7 @@ test.describe.serial('Login page:', () => {
     await loginPage.typeUsername();
     await loginPage.typePassword();
     await loginPage.clickLogin();
-    productsPage = new ProductsPage(page);
-    await productsPage.productsToBeVisible();
+    await new ProductsPage(page).productsToBeVisible();
   });
 });
 

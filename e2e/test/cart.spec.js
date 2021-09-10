@@ -3,27 +3,29 @@ const {LoginPage} = require('../pages/login-page');
 const {ProductsPage} = require('../pages/products-page');
 const {CartPage} = require('../pages/cart-page');
 
-test.describe.serial('Products page:', () => {
+test.describe.serial('Cart page:', () => {
   let page;
   let productsPage;
+  let cartPage;
+  let randomItem;
 
   test.beforeAll(async ({browser}) => {
     page = await browser.newPage();
     await new LoginPage(page).normalLogin();
     productsPage = new ProductsPage(page);
+    cartPage = new CartPage(page);
   });
 
   test.afterAll(async () => {
     await page.close();
   });
 
-  test('Products are displayed', async () => {
-    await productsPage.productsToBeVisible();
+  test('Random added item is displayed in the cart', async () => {
+    randomItem = await productsPage.addItemAndGoToCart();
+    await cartPage.checkItemInCart(randomItem);
   });
 
-  test('User can add a random item to the basket', async () => {
-    const randomItem = await productsPage.addRandomItem();
-    await productsPage.openCart();
-    await new CartPage(page).checkItemInCart(randomItem);
+  test('It is possible to remove item', async () => {
+    await cartPage.removeItem(randomItem);
   });
 });
