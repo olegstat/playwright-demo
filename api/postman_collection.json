@@ -1,0 +1,163 @@
+{
+	"info": {
+		"_postman_id": "ef617568-3aee-4b2c-b1e0-f2ac8d3dbc07",
+		"name": "API-Automation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Endpoints health check",
+			"item": [
+				{
+					"name": "Get all users",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"meta\": {\r\n        \"pagination\": {\r\n            \"total\": 6559,\r\n            \"pages\": 328,\r\n            \"page\": 1,\r\n            \"limit\": 20,\r\n            \"links\": {\r\n                \"previous\": null,\r\n                \"current\": \"https://gorest.co.in/public/v1/users?page=1\",\r\n                \"next\": \"https://gorest.co.in/public/v1/users?page=2\"\r\n            }\r\n        }\r\n    },\r\n    \"data\": [\r\n        {\r\n            \"id\": 45,\r\n            \"name\": \"Gurdev Menon\",\r\n            \"email\": \"menon_gurdev@weimann.net\",\r\n            \"gender\": \"female\",\r\n            \"status\": \"active\"\r\n        },\r\n        {\r\n            \"id\": 46,\r\n            \"name\": \"Devdan Ahuja\",\r\n            \"email\": \"devdan_ahuja@fritsch.info\",\r\n            \"gender\": \"female\",\r\n            \"status\": \"inactive\"\r\n        },\r\n        {\r\n            \"id\": 49,\r\n            \"name\": \"Gajabahu Kaniyar\",\r\n            \"email\": \"gajabahu_kaniyar@kshlerin.net\",\r\n            \"gender\": \"female\",\r\n            \"status\": \"active\"\r\n        },\r\n        {\r\n            \"id\": 50,\r\n            \"name\": \"Chandni Reddy\",\r\n            \"email\": \"chandni_reddy@sanford-pacocha.biz\",\r\n            \"gender\": \"male\",\r\n            \"status\": \"inactive\"\r\n        },\r\n        {\r\n            \"id\": 51,\r\n            \"name\": \"Dr. Aadrika Joshi\",\r\n            \"email\": \"joshi_aadrika_dr@langosh.com\",\r\n            \"gender\": \"female\",\r\n            \"status\": \"active\"\r\n        },\r\n        {\r\n            \"id\": 53,\r\n            \"name\": \"Bhanumati Jha LLD\",\r\n            \"email\": \"bhanumati_jha_lld@hamill.io\",\r\n            \"gender\": \"female\",\r\n            \"status\": \"active\"\r\n        },\r\n        {\r\n            \"id\": 54,\r\n            \"name\": \"Chandran Shah\",\r\n            \"email\": \"shah_chandran@feeney.name\",\r\n            \"gender\": \"female\",\r\n            \"status\": \"inactive\"\r\n        },\r\n        {\r\n            \"id\": 55,\r\n            \"name\": \"Devani Guha\",\r\n            \"email\": \"guha_devani@streich-tremblay.io\",\r\n            \"gender\": \"female\",\r\n            \"status\": \"inactive\"\r\n        },\r\n        {\r\n            \"id\": 56,\r\n            \"name\": \"Amritambu Somayaji\",\r\n            \"email\": \"somayaji_amritambu@armstrong.info\",\r\n            \"gender\": \"female\",\r\n            \"status\": \"active\"\r\n        },\r\n        {\r\n            \"id\": 57,\r\n            \"name\": \"Poornima Malik\",\r\n            \"email\": \"poornima_malik@kassulke.info\",\r\n            \"gender\": \"female\",\r\n            \"status\": \"inactive\"\r\n        },\r\n        {\r\n            \"id\": 58,\r\n            \"name\": \"Gautami Nayar Sr.\",\r\n            \"email\": \"nayar_gautami_sr@goyette.info\",\r\n            \"gender\": \"male\",\r\n            \"status\": \"active\"\r\n        },\r\n        {\r\n            \"id\": 59,\r\n            \"name\": \"Anal Dhawan\",\r\n            \"email\": \"dhawan_anal@streich.com\",\r\n            \"gender\": \"male\",\r\n            \"status\": \"inactive\"\r\n        },\r\n        {\r\n            \"id\": 60,\r\n            \"name\": \"Pres. Shivakari Varma\",\r\n            \"email\": \"pres_shivakari_varma@davis-olson.biz\",\r\n            \"gender\": \"male\",\r\n            \"status\": \"active\"\r\n        },\r\n        {\r\n            \"id\": 61,\r\n            \"name\": \"Chandra Arora\",\r\n            \"email\": \"arora_chandra@weimann.co\",\r\n            \"gender\": \"male\",\r\n            \"status\": \"inactive\"\r\n        },\r\n        {\r\n            \"id\": 62,\r\n            \"name\": \"Amb. Chatura Dwivedi\",\r\n            \"email\": \"chatura_amb_dwivedi@king-mayer.net\",\r\n            \"gender\": \"male\",\r\n            \"status\": \"inactive\"\r\n        },\r\n        {\r\n            \"id\": 63,\r\n            \"name\": \"Rajendra Patil\",\r\n            \"email\": \"rajendra_patil@brakus-hammes.io\",\r\n            \"gender\": \"male\",\r\n            \"status\": \"inactive\"\r\n        },\r\n        {\r\n            \"id\": 64,\r\n            \"name\": \"Dr. Aayushmaan Tagore\",\r\n            \"email\": \"dr_aayushmaan_tagore@cremin-hamill.org\",\r\n            \"gender\": \"female\",\r\n            \"status\": \"active\"\r\n        },\r\n        {\r\n            \"id\": 66,\r\n            \"name\": \"Allasani Peddana\",\r\n            \"email\": \"allasani.peddana@15ce.com\",\r\n            \"gender\": \"female\",\r\n            \"status\": \"active\"\r\n        },\r\n        {\r\n            \"id\": 67,\r\n            \"name\": \"Chandravati Arora\",\r\n            \"email\": \"arora_chandravati@klein.io\",\r\n            \"gender\": \"male\",\r\n            \"status\": \"active\"\r\n        },\r\n        {\r\n            \"id\": 68,\r\n            \"name\": \"Jyoti Butt\",\r\n            \"email\": \"jyoti_butt@weissnat-dickens.info\",\r\n            \"gender\": \"male\",\r\n            \"status\": \"inactive\"\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URI}}/public/v1/users",
+							"host": [
+								"{{URI}}"
+							],
+							"path": [
+								"public",
+								"v1",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all posts",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URI}}/public/v1/posts",
+							"host": [
+								"{{URI}}"
+							],
+							"path": [
+								"public",
+								"v1",
+								"posts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all comments",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URI}}/public/v1/comments",
+							"host": [
+								"{{URI}}"
+							],
+							"path": [
+								"public",
+								"v1",
+								"comments"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get all todos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URI}}/public/v1/todos",
+							"host": [
+								"{{URI}}"
+							],
+							"path": [
+								"public",
+								"v1",
+								"todos"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

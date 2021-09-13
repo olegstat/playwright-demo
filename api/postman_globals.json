@@ -1,0 +1,14 @@
+{
+	"id": "3375ccf7-8749-49d1-8a33-9a0d265b95ce",
+	"values": [
+		{
+			"key": "URI",
+			"value": "https://gorest.co.in",
+			"enabled": true
+		}
+	],
+	"name": "My Workspace Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2021-09-13T19:20:25.533Z",
+	"_postman_exported_using": "Postman/8.13.0-210901-1430"
+}
