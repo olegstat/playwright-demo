@@ -1,7 +1,9 @@
+const {devices} = require('@playwright/test');
+
 const config = {
   testDir: 'e2e',
   timeout: 10000,
-  retries: 0,
+  retries: 1,
   reporter: 'list',
   use: {
     headless: true,
@@ -12,16 +14,30 @@ const config = {
   },
   projects: [
     {
-      name: 'Chrome',
+      name: 'DesktopChrome',
       use: {
         browserName: 'chromium',
         viewport: null,
       },
     },
-
     {
-      name: 'Firefox',
+      name: 'DesktopFirefox',
       use: {browserName: 'firefox'},
+    },
+    {
+      name: 'DesktopSafari',
+      use: {
+        browserName: 'webkit',
+        viewport: {width: 1200, height: 750},
+      },
+    },
+    {
+      name: 'MobileChrome',
+      use: devices['Pixel 5'],
+    },
+    {
+      name: 'MobileSafari',
+      use: devices['iPhone 12'],
     },
   ],
 };

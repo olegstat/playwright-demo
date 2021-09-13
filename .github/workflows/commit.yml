@@ -58,6 +58,15 @@ jobs:
       
       - name: Run Tests In Firefox
         run: npm run test:headless:firefox
+      
+      - name: Run Tests In Safari
+        run: npm run test:headless:safari
+      
+      - name: Run Tests In Mobile Chrome
+        run: npm run test:headless:chrome:mobile
+      
+      - name: Run Tests In Mobile Safari
+        run: npm run test:headless:safari:mobile
     
             
   
