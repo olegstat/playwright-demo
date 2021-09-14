@@ -158,6 +158,704 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Create new user",
+					"item": [
+						{
+							"name": "Create new user - no auth",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 401\", function () {\r",
+											"    pm.response.to.have.status(401);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Body is correct\", function () {\r",
+											"    pm.response.to.have.body('{\"meta\":null,\"data\":{\"message\":\"Authentication failed\"}}');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URI}}/public/v1/users",
+									"host": [
+										"{{URI}}"
+									],
+									"path": [
+										"public",
+										"v1",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create new user - no body sent",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 422\", function () {\r",
+											"    pm.response.to.have.status(422);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Body is correct\", function () {\r",
+											"    pm.response.to.have.body('{\"meta\":null,\"data\":[{\"field\":\"email\",\"message\":\"can\\'t be blank\"},{\"field\":\"name\",\"message\":\"can\\'t be blank\"},{\"field\":\"gender\",\"message\":\"can\\'t be blank\"},{\"field\":\"status\",\"message\":\"can\\'t be blank\"}]}');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URI}}/public/v1/users",
+									"host": [
+										"{{URI}}"
+									],
+									"path": [
+										"public",
+										"v1",
+										"users"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Add new user",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const genders = [\"male\", \"female\"];\r",
+											"const randomGender = genders[Math.floor(Math.random() * genders.length)];\r",
+											"const statuses = [\"active\", \"inactive\"];\r",
+											"const randomStatus =  statuses[Math.floor(Math.random() * statuses.length)];\r",
+											"const randomEmail = pm.variables.replaceIn('{{$randomEmail}}');\r",
+											"const randomName = pm.variables.replaceIn('{{$randomFullName}}');\r",
+											"\r",
+											"pm.environment.set(\"email\", randomEmail);\r",
+											"pm.environment.set(\"name\", randomName);\r",
+											"pm.environment.set(\"gender\", randomGender);\r",
+											"pm.environment.set(\"status\", randomStatus);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Email is correct\", function () {\r",
+											"    pm.expect(jsonData.data.email).to.eql(pm.environment.get(\"email\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Name is correct\", function () {\r",
+											"    pm.expect(jsonData.data.name).to.eql(pm.environment.get(\"name\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Gender is correct\", function () {\r",
+											"    pm.expect(jsonData.data.gender).to.eql(pm.environment.get(\"gender\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Status is correct\", function () {\r",
+											"    pm.expect(jsonData.data.status).to.eql(pm.environment.get(\"status\"));\r",
+											"});\r",
+											"\r",
+											"pm.environment.set('id', jsonData.data.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"{{name}}\",\r\n    \"gender\": \"{{gender}}\",\r\n    \"email\": \"{{email}}\",\r\n    \"status\": \"{{status}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URI}}/public/v1/users",
+									"host": [
+										"{{URI}}"
+									],
+									"path": [
+										"public",
+										"v1",
+										"users"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get details of created user",
+					"item": [
+						{
+							"name": "Get user details",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Email is correct\", function () {\r",
+											"    pm.expect(jsonData.data.email).to.eql(pm.environment.get(\"email\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Name is correct\", function () {\r",
+											"    pm.expect(jsonData.data.name).to.eql(pm.environment.get(\"name\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Gender is correct\", function () {\r",
+											"    pm.expect(jsonData.data.gender).to.eql(pm.environment.get(\"gender\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Status is correct\", function () {\r",
+											"    pm.expect(jsonData.data.status).to.eql(pm.environment.get(\"status\"));\r",
+											"});\r",
+											"\r",
+											"pm.environment.set('id', jsonData.data.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URI}}/public/v1/users/{{id}}",
+									"host": [
+										"{{URI}}"
+									],
+									"path": [
+										"public",
+										"v1",
+										"users",
+										"{{id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Update user",
+					"item": [
+						{
+							"name": "Update name",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const randomName = pm.variables.replaceIn('{{$randomFullName}}');\r",
+											"\r",
+											"pm.environment.set(\"name\", randomName);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Name updated\", function () {\r",
+											"    pm.expect(jsonData.data.name).to.eql(pm.environment.get(\"name\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Email is correct\", function () {\r",
+											"    pm.expect(jsonData.data.email).to.eql(pm.environment.get(\"email\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Gender is correct\", function () {\r",
+											"    pm.expect(jsonData.data.gender).to.eql(pm.environment.get(\"gender\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Status is correct\", function () {\r",
+											"    pm.expect(jsonData.data.status).to.eql(pm.environment.get(\"status\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"{{name}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URI}}/public/v1/users/{{id}}",
+									"host": [
+										"{{URI}}"
+									],
+									"path": [
+										"public",
+										"v1",
+										"users",
+										"{{id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update email",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const randomEmail = pm.variables.replaceIn('{{$randomEmail}}');\r",
+											"\r",
+											"pm.environment.set(\"email\", randomEmail);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Email updated\", function () {\r",
+											"    pm.expect(jsonData.data.email).to.eql(pm.environment.get(\"email\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Name is correct\", function () {\r",
+											"    pm.expect(jsonData.data.name).to.eql(pm.environment.get(\"name\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Gender is correct\", function () {\r",
+											"    pm.expect(jsonData.data.gender).to.eql(pm.environment.get(\"gender\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Status is correct\", function () {\r",
+											"    pm.expect(jsonData.data.status).to.eql(pm.environment.get(\"status\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"email\": \"{{email}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URI}}/public/v1/users/{{id}}",
+									"host": [
+										"{{URI}}"
+									],
+									"path": [
+										"public",
+										"v1",
+										"users",
+										"{{id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update gender",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const genders = [\"male\", \"female\"];\r",
+											"const randomGender = genders[Math.floor(Math.random() * genders.length)];\r",
+											"\r",
+											"pm.environment.set(\"gender\", randomGender);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Gender updated\", function () {\r",
+											"    pm.expect(jsonData.data.gender).to.eql(pm.environment.get(\"gender\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Email is correct\", function () {\r",
+											"    pm.expect(jsonData.data.email).to.eql(pm.environment.get(\"email\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Name is correct\", function () {\r",
+											"    pm.expect(jsonData.data.name).to.eql(pm.environment.get(\"name\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Status is correct\", function () {\r",
+											"    pm.expect(jsonData.data.status).to.eql(pm.environment.get(\"status\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"gender\": \"{{gender}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URI}}/public/v1/users/{{id}}",
+									"host": [
+										"{{URI}}"
+									],
+									"path": [
+										"public",
+										"v1",
+										"users",
+										"{{id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update status",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const statuses = [\"active\", \"inactive\"];\r",
+											"const randomStatus =  statuses[Math.floor(Math.random() * statuses.length)];\r",
+											"\r",
+											"pm.environment.set(\"status\", randomStatus);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Status updated\", function () {\r",
+											"    pm.expect(jsonData.data.status).to.eql(pm.environment.get(\"status\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Email is correct\", function () {\r",
+											"    pm.expect(jsonData.data.email).to.eql(pm.environment.get(\"email\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Gender is correct\", function () {\r",
+											"    pm.expect(jsonData.data.gender).to.eql(pm.environment.get(\"gender\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Name is correct\", function () {\r",
+											"    pm.expect(jsonData.data.name).to.eql(pm.environment.get(\"name\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"status\": \"{{status}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URI}}/public/v1/users/{{id}}",
+									"host": [
+										"{{URI}}"
+									],
+									"path": [
+										"public",
+										"v1",
+										"users",
+										"{{id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Delete user",
+					"item": [
+						{
+							"name": "User can be deleted",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", function () {\r",
+											"    pm.response.to.have.status(204);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{URI}}/public/v1/users/{{id}}",
+									"host": [
+										"{{URI}}"
+									],
+									"path": [
+										"public",
+										"v1",
+										"users",
+										"{{id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User is deleted",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Body is correct\", function () {\r",
+											"    pm.response.to.have.body('{\"meta\":null,\"data\":{\"message\":\"Resource not found\"}}');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URI}}/public/v1/users/{{id}}",
+									"host": [
+										"{{URI}}"
+									],
+									"path": [
+										"public",
+										"v1",
+										"users",
+										"{{id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
 		}
 	]
 }
