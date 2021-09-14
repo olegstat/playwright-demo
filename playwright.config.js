@@ -4,13 +4,16 @@ const config = {
   testDir: 'e2e',
   timeout: 10000,
   retries: 1,
-  reporter: 'list',
+  reporter: [['list'], ['junit', {outputFile: 'test-results/results.xml'}]],
+  globalTeardown: './global-teardown',
   use: {
     headless: true,
     viewport: {width: 1280, height: 720},
     ignoreHTTPSErrors: true,
     baseURL: 'https://www.saucedemo.com',
     screenshot: 'only-on-failure',
+    video: 'on-first-retry',
+    trace: 'retain-on-failure',
   },
   projects: [
     {
