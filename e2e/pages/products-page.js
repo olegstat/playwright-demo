@@ -10,6 +10,8 @@ exports.ProductsPage = class ProductsPage {
     this.inventoryItem = '.inventory_item';
     this.inventoryItemName = '.inventory_item_name';
     this.inventoryItemPrice = '.inventory_item_price';
+    this.burgerButton = '#react-burger-menu-btn';
+    this.logoutButton = '#logout_sidebar_link';
   }
 
   async productsToBeVisible() {
@@ -60,5 +62,10 @@ exports.ProductsPage = class ProductsPage {
     const randomItem = await this.addRandomItem();
     await this.openCart();
     return randomItem;
+  }
+
+  async logout() {
+    await this.page.locator(this.burgerButton).click();
+    await this.page.locator(this.logoutButton).click();
   }
 };

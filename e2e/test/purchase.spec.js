@@ -4,6 +4,7 @@ const {CheckoutInfoPage} = require('../pages/checkout-info-page');
 const {LoginPage} = require('../pages/login-page');
 const {ProductsPage} = require('../pages/products-page');
 const {PaymentPage} = require('../pages/payment-page');
+const {SuccessPage} = require('../pages/order-confirm-page');
 
 test.describe.serial('Purchase flow test:', () => {
   let page;
@@ -14,6 +15,7 @@ test.describe.serial('Purchase flow test:', () => {
   let cartPage;
   let checkoutInfoPage;
   let paymentPage;
+  let confirmPage;
 
   test.beforeAll(async ({browser}) => {
     page = await browser.newPage();
@@ -22,6 +24,7 @@ test.describe.serial('Purchase flow test:', () => {
     cartPage = new CartPage(page);
     checkoutInfoPage = new CheckoutInfoPage(page);
     paymentPage = new PaymentPage(page);
+    confirmPage = new SuccessPage(page);
   });
 
   test.afterAll(async () => {
@@ -93,5 +96,23 @@ test.describe.serial('Purchase flow test:', () => {
     await paymentPage.verifySubtotal(subtotal);
     await paymentPage.verifyTax(subtotal);
     await paymentPage.verifyGrandTotal(subtotal);
+  });
+
+  test('Purchase can be finished', async () => {
+    await paymentPage.finishPayment();
+  });
+
+  test('Order confirmation page is displayed', async () => {
+    await confirmPage.succcessPageToBeVisible();
+  });
+
+  test('It is possible to go back to products list', async () => {
+    await confirmPage.goBackToProducts();
+    await productsPage.productsToBeVisible();
+  });
+
+  test('User can logout', async () => {
+    await productsPage.logout();
+    await loginPage.verifyTitle();
   });
 });
