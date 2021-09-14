@@ -17,6 +17,7 @@
     "test:headless:safari:mobile": "playwright test --update-snapshots --project=MobileSafari --workers 1",
     "test:headless:all": "playwright test --update-snapshots",
     "test:api": "newman run api/postman_collection.json --globals api/postman_globals.json -e api/postman_environment.json",
+    "test:api:save-report": "newman run api/postman_collection.json --globals api/postman_globals.json -e api/postman_environment.json -r html --reporter-html-export api/reports",
     "lint": "node_modules/.bin/eslint ."
   },
   "repository": {

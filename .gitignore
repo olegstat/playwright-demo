@@ -108,3 +108,6 @@ dist
 
 # test-results
 test-results/
+
+# Newman reports
+api/reports
