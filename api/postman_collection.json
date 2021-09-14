@@ -767,6 +767,98 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Update all fields",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"const genders = [\"male\", \"female\"];\r",
+											"const randomGender = genders[Math.floor(Math.random() * genders.length)];\r",
+											"const statuses = [\"active\", \"inactive\"];\r",
+											"const randomStatus =  statuses[Math.floor(Math.random() * statuses.length)];\r",
+											"const randomEmail = pm.variables.replaceIn('{{$randomEmail}}');\r",
+											"const randomName = pm.variables.replaceIn('{{$randomFullName}}');\r",
+											"\r",
+											"pm.environment.set(\"email\", randomEmail);\r",
+											"pm.environment.set(\"name\", randomName);\r",
+											"pm.environment.set(\"gender\", randomGender);\r",
+											"pm.environment.set(\"status\", randomStatus);\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Email is correct\", function () {\r",
+											"    pm.expect(jsonData.data.email).to.eql(pm.environment.get(\"email\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Name is correct\", function () {\r",
+											"    pm.expect(jsonData.data.name).to.eql(pm.environment.get(\"name\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Gender is correct\", function () {\r",
+											"    pm.expect(jsonData.data.gender).to.eql(pm.environment.get(\"gender\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Status is correct\", function () {\r",
+											"    pm.expect(jsonData.data.status).to.eql(pm.environment.get(\"status\"));\r",
+											"});\r",
+											"\r",
+											"pm.environment.set('id', jsonData.data.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"{{name}}\",\r\n    \"gender\": \"{{gender}}\",\r\n    \"email\": \"{{email}}\",\r\n    \"status\": \"{{status}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URI}}/public/v1/users/{{id}}",
+									"host": [
+										"{{URI}}"
+									],
+									"path": [
+										"public",
+										"v1",
+										"users",
+										"{{id}}"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
