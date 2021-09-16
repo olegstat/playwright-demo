@@ -9,7 +9,7 @@ This repo contains:
 ## Features
 
 **Common**:
-- Integration with CI/CD (Github Actions): E2E, API and Linter tests are executed in the cloud each time the **main** branch is synchronized (on every commit)
+- Integration with CI/CD (Github Actions): E2E, API and Linter tests are executed in the cloud each time the **main** branch is synchronized (on every commit). Email notifications on test run fail.
 - All frameworks are in the same repo
 - NPM used as the package manager gives the possibility to customize the run scripts and integrate with a wide variety of tech, as well as make the proejct setup really easy and straightforward
 - Linter tests are executed on each commit. It is possible to run them manually from the command line as well
