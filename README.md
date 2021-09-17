@@ -1,4 +1,7 @@
-Latest commit status (Linter, E2E, API tests): [![Commit](https://github.com/olegstat/playwright-demo/actions/workflows/commit.yml/badge.svg)](https://github.com/olegstat/playwright-demo/actions/workflows/commit.yml)
+Test results for the latest commit:
+[![Linter](https://github.com/olegstat/playwright-demo/actions/workflows/lint.yml/badge.svg)](https://github.com/olegstat/playwright-demo/actions/workflows/lint.yml)
+[![E2E](https://github.com/olegstat/playwright-demo/actions/workflows/e2e.yml/badge.svg)](https://github.com/olegstat/playwright-demo/actions/workflows/e2e.yml)
+[![API](https://github.com/olegstat/playwright-demo/actions/workflows/api.yml/badge.svg)](https://github.com/olegstat/playwright-demo/actions/workflows/api.yml)
 # Automation Framework Demo
 
 This repo contains:
