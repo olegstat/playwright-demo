@@ -133,6 +133,6 @@ It is possible to modify the run scripts from the **./package.json** file in the
 
 Playwright configs are located at **./playwright.config.js**.
 
-**./.github/workflows/commit.yml** - Github Actions (CI/CD) setup file
+**./.github/workflows/** - Github Actions (CI/CD) setup files
 
 **./eslintrc** - ESLint setup file
