@@ -1,7 +1,6 @@
 const {test} = require('@playwright/test');
 const {LoginPage} = require('../pages/login-page');
 const {ProductsPage} = require('../pages/products-page');
-const {CartPage} = require('../pages/cart-page');
 
 test.describe.serial('Cart page:', () => {
   let page;
@@ -13,7 +12,6 @@ test.describe.serial('Cart page:', () => {
     page = await browser.newPage();
     await new LoginPage(page).normalLogin();
     productsPage = new ProductsPage(page);
-    cartPage = new CartPage(page);
   });
 
   test.afterAll(async () => {
@@ -21,7 +19,8 @@ test.describe.serial('Cart page:', () => {
   });
 
   test('Random added item is displayed in the cart', async () => {
-    randomItem = await productsPage.addItemAndGoToCart();
+    randomItem = await productsPage.addRandomItem();
+    cartPage = await productsPage.openCart();
     await cartPage.checkItemInCart(randomItem);
   });
 

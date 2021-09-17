@@ -1,10 +1,5 @@
 const {test} = require('@playwright/test');
-const {CartPage} = require('../pages/cart-page');
-const {CheckoutInfoPage} = require('../pages/checkout-info-page');
 const {LoginPage} = require('../pages/login-page');
-const {ProductsPage} = require('../pages/products-page');
-const {PaymentPage} = require('../pages/payment-page');
-const {SuccessPage} = require('../pages/order-confirm-page');
 
 test.describe.serial('Purchase flow test:', () => {
   let page;
@@ -20,11 +15,6 @@ test.describe.serial('Purchase flow test:', () => {
   test.beforeAll(async ({browser}) => {
     page = await browser.newPage();
     loginPage = new LoginPage(page);
-    productsPage = new ProductsPage(page);
-    cartPage = new CartPage(page);
-    checkoutInfoPage = new CheckoutInfoPage(page);
-    paymentPage = new PaymentPage(page);
-    confirmPage = new SuccessPage(page);
   });
 
   test.afterAll(async () => {
@@ -47,7 +37,7 @@ test.describe.serial('Purchase flow test:', () => {
   test('User can login', async () => {
     await loginPage.typeUsername();
     await loginPage.typePassword();
-    await loginPage.clickLogin();
+    productsPage = await loginPage.clickLogin();
   });
 
   test('Products are displayed', async () => {
@@ -56,7 +46,7 @@ test.describe.serial('Purchase flow test:', () => {
 
   test('User can add a random item to the basket', async () => {
     randomItem = await productsPage.addRandomItem();
-    await productsPage.openCart();
+    cartPage = await productsPage.openCart();
   });
 
   test('Added item is displayed in the cart', async () => {
@@ -65,7 +55,7 @@ test.describe.serial('Purchase flow test:', () => {
   });
 
   test('User can proceed to checkout customer info page', async () => {
-    await cartPage.proceedToCheckout();
+    checkoutInfoPage = await cartPage.proceedToCheckout();
   });
 
   test('Checkout info page is displayed', async () => {
@@ -77,7 +67,7 @@ test.describe.serial('Purchase flow test:', () => {
   });
 
   test('User can proceed to payment', async () => {
-    await checkoutInfoPage.proceedToPayment();
+    paymentPage = await checkoutInfoPage.proceedToPayment();
   });
 
   test('Payment page is displayed', async () => {
@@ -99,7 +89,7 @@ test.describe.serial('Purchase flow test:', () => {
   });
 
   test('Purchase can be finished', async () => {
-    await paymentPage.finishPayment();
+    confirmPage = await paymentPage.finishPayment();
   });
 
   test('Order confirmation page is displayed', async () => {

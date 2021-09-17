@@ -4,6 +4,7 @@ const {
   LAST_NAME,
   POSTAL_CODE,
 } = require('../test-data');
+const {PaymentPage} = require('./payment-page');
 
 exports.CheckoutInfoPage = class CheckoutInfoPage {
   constructor(page) {
@@ -55,6 +56,8 @@ exports.CheckoutInfoPage = class CheckoutInfoPage {
 
   async proceedToPayment() {
     await this.page.locator(this.continueButton).click();
+    const paymentPage = new PaymentPage(this.page);
+    return paymentPage;
   }
 
   async fillInCustomerData() {

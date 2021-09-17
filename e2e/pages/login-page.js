@@ -1,5 +1,6 @@
 const {expect} = require('@playwright/test');
 const {HOME_PAGE_TITLE, USERNAME, PASSWORD} = require('../test-data');
+const {ProductsPage} = require('./products-page');
 
 exports.LoginPage = class LoginPage {
   constructor(page) {
@@ -41,6 +42,8 @@ exports.LoginPage = class LoginPage {
 
   async clickLogin() {
     await this.page.locator(this.loginButton).click();
+    const productsPage = new ProductsPage(this.page);
+    return productsPage;
   }
 
   async loginInputToBeEmpty() {

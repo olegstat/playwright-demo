@@ -1,4 +1,5 @@
 const {expect} = require('@playwright/test');
+const {CheckoutInfoPage} = require('./checkout-info-page');
 
 exports.CartPage = class CartPage {
   constructor(page) {
@@ -26,6 +27,8 @@ exports.CartPage = class CartPage {
 
   async proceedToCheckout() {
     await this.page.locator(this.checkoutButton).click();
+    const checkoutInfoPage = new CheckoutInfoPage(this.page);
+    return checkoutInfoPage;
   }
 
   async calculateSubtotal() {

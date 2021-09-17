@@ -1,4 +1,5 @@
 const {expect} = require('@playwright/test');
+const {CartPage} = require('./cart-page');
 
 exports.ProductsPage = class ProductsPage {
   constructor(page) {
@@ -20,6 +21,8 @@ exports.ProductsPage = class ProductsPage {
 
   async openCart() {
     await this.page.click(this.basket);
+    const cartPage = new CartPage(this.page);
+    return cartPage;
   }
 
   async getProducts() {
@@ -56,12 +59,6 @@ exports.ProductsPage = class ProductsPage {
   async getItemPrice(item, products) {
     const itemPrice = await products[item].price;
     return itemPrice;
-  }
-
-  async addItemAndGoToCart() {
-    const randomItem = await this.addRandomItem();
-    await this.openCart();
-    return randomItem;
   }
 
   async logout() {

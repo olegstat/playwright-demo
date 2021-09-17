@@ -1,5 +1,6 @@
 const {expect} = require('@playwright/test');
 const {PAYMENT_INFO, SHIPPING_INFO} = require('../test-data');
+const {SuccessPage} = require('./order-confirm-page');
 
 exports.PaymentPage = class PaymentPage {
   constructor(page) {
@@ -55,5 +56,7 @@ exports.PaymentPage = class PaymentPage {
 
   async finishPayment() {
     await this.page.locator(this.finishButton).click();
+    const confirmPage = new SuccessPage(this.page);
+    return confirmPage;
   }
 };

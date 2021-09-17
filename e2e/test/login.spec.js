@@ -1,6 +1,5 @@
 const {test} = require('@playwright/test');
 const {LoginPage} = require('../pages/login-page');
-const {ProductsPage} = require('../pages/products-page');
 
 test.describe.serial('Login page:', () => {
   let page;
@@ -31,8 +30,8 @@ test.describe.serial('Login page:', () => {
   test('User can login', async () => {
     await loginPage.typeUsername();
     await loginPage.typePassword();
-    await loginPage.clickLogin();
-    await new ProductsPage(page).productsToBeVisible();
+    const productsPage = await loginPage.clickLogin();
+    await productsPage.productsToBeVisible();
   });
 });
 
