@@ -1,10 +1,10 @@
-const {expect} = require('@playwright/test');
 const {HOME_PAGE_TITLE, USERNAME, PASSWORD} = require('../test-data');
+const {BasePage} = require('./base-page');
 const {ProductsPage} = require('./products-page');
 
-exports.LoginPage = class LoginPage {
+exports.LoginPage = class LoginPage extends BasePage {
   constructor(page) {
-    this.page = page;
+    super(page);
 
     this.login = '#user-name';
     this.password = '#password';
@@ -13,50 +13,50 @@ exports.LoginPage = class LoginPage {
   }
 
   async goto() {
-    await this.page.goto('/');
+    await this.navigateToHomePage();
   }
 
   async verifyTitle() {
-    await expect(this.page).toHaveTitle(HOME_PAGE_TITLE);
+    await this.toHaveTitle(HOME_PAGE_TITLE);
   }
 
   async loginFieldToBeVisible() {
-    await expect(this.page.locator(this.login)).toBeVisible();
+    await this.elementToBeVisible(this.login);
   }
 
   async typeUsername() {
-    await this.page.locator(this.login).type(USERNAME);
+    await this.type(this.login, USERNAME);
   }
 
   async passwordFieldToBeVisible() {
-    await expect(this.page.locator(this.password)).toBeVisible();
+    await this.elementToBeVisible(this.password);
   }
 
   async typePassword() {
-    await this.page.locator(this.password).type(PASSWORD);
+    await this.type(this.password, PASSWORD);
   }
 
   async loginButtonToBeVisible() {
-    await expect(this.page.locator(this.loginButton)).toBeVisible();
+    await this.elementToBeVisible(this.loginButton);
   }
 
   async clickLogin() {
-    await this.page.locator(this.loginButton).click();
+    await this.click(this.loginButton);
     const productsPage = new ProductsPage(this.page);
     return productsPage;
   }
 
   async loginInputToBeEmpty() {
-    await expect(this.page.locator(this.login)).toBeEmpty();
+    await this.elementToBeEmpty(this.login);
   }
 
   async passwordInputToBeEmpty() {
-    await expect(this.page.locator(this.password)).toBeEmpty();
+    await this.elementToBeEmpty(this.password);
   }
 
-  async errorMessageToBeVisible() {
-    await expect(this.page.locator(this.errorMessage)).toBeVisible();
-    await expect(this.page.locator(this.errorMessage)).toHaveText();
+  async errorMessageToBeVisible(text) {
+    await this.elementToBeVisible(this.errorMessage);
+    await this.toHaveText(this.errorMessage, text);
   }
 
   async normalLogin() {

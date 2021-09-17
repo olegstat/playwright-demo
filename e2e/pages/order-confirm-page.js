@@ -1,18 +1,19 @@
-const {expect} = require('@playwright/test');
 
-exports.SuccessPage = class SuccessPage {
+const {BasePage} = require('./base-page');
+
+exports.SuccessPage = class SuccessPage extends BasePage {
   constructor(page) {
-    this.page = page;
+    super(page);
 
     this.completeHeader = '.complete-header';
     this.goBackButton = '#back-to-products';
   }
 
   async succcessPageToBeVisible() {
-    await expect(this.page.locator(this.completeHeader)).toBeVisible();
+    await this.elementToBeVisible(this.completeHeader);
   }
 
   async goBackToProducts() {
-    await this.page.locator(this.goBackButton).click();
+    await this.click(this.goBackButton);
   }
 };

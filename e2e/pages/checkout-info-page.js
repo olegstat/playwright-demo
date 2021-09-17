@@ -4,11 +4,12 @@ const {
   LAST_NAME,
   POSTAL_CODE,
 } = require('../test-data');
+const {BasePage} = require('./base-page');
 const {PaymentPage} = require('./payment-page');
 
-exports.CheckoutInfoPage = class CheckoutInfoPage {
+exports.CheckoutInfoPage = class CheckoutInfoPage extends BasePage {
   constructor(page) {
-    this.page = page;
+    super(page);
 
     this.checkoutContainer = '#checkout_info_container';
     this.firstNameInput = '#first-name';
@@ -18,44 +19,41 @@ exports.CheckoutInfoPage = class CheckoutInfoPage {
   }
 
   async checkoutToBeVisible() {
-    await expect(this.page.locator(this.checkoutContainer)).toBeVisible();
+    await this.elementToBeVisible(this.checkoutContainer);
   }
 
   async firstNameToHaveText(text) {
-    const value = await this.page.locator(this.firstNameInput)
-        .getAttribute('value');
+    const value = await this.getElementValue(this.firstNameInput);
     await expect(value).toBe(text);
   }
 
   async lastNameToHaveText(text) {
-    const value = await this.page.locator(this.lastNameInput)
-        .getAttribute('value');
+    const value = await this.getElementValue(this.lastNameInput);
     await expect(value).toBe(text);
   }
 
   async postalInputToHaveText(text) {
-    const value = await this.page.locator(this.postalInput)
-        .getAttribute('value');
+    const value = await this.getElementValue(this.postalInput);
     await expect(value).toBe(text);
   }
 
   async typeFirstName() {
-    await this.page.fill(this.firstNameInput, FIRST_NAME);
+    await this.fill(this.firstNameInput, FIRST_NAME);
     await this.firstNameToHaveText(FIRST_NAME);
   }
 
   async typeLastName() {
-    await this.page.fill(this.lastNameInput, LAST_NAME);
+    await this.fill(this.lastNameInput, LAST_NAME);
     await this.lastNameToHaveText(LAST_NAME);
   }
 
   async typePostalCode() {
-    await this.page.fill(this.postalInput, POSTAL_CODE);
+    await this.fill(this.postalInput, POSTAL_CODE);
     await this.postalInputToHaveText(POSTAL_CODE);
   }
 
   async proceedToPayment() {
-    await this.page.locator(this.continueButton).click();
+    await this.click(this.continueButton);
     const paymentPage = new PaymentPage(this.page);
     return paymentPage;
   }

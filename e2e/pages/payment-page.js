@@ -1,10 +1,10 @@
-const {expect} = require('@playwright/test');
 const {PAYMENT_INFO, SHIPPING_INFO} = require('../test-data');
+const {BasePage} = require('./base-page');
 const {SuccessPage} = require('./order-confirm-page');
 
-exports.PaymentPage = class PaymentPage {
+exports.PaymentPage = class PaymentPage extends BasePage {
   constructor(page) {
-    this.page = page;
+    super(page);
 
     this.summaryInfoContainer = '.summary_info';
     this.paymentInfo = () => `//div[contains(
@@ -20,20 +20,20 @@ exports.PaymentPage = class PaymentPage {
   }
 
   async summaryToBeVisible() {
-    await expect(this.page.locator(this.summaryInfoContainer)).toBeVisible();
+    await this.elementToBeVisible(this.summaryInfoContainer);
   };
 
   async paymentToBeVisible() {
-    await expect(this.page.locator(this.paymentInfo())).toBeVisible();
+    await this.elementToBeVisible(this.paymentInfo());
   }
 
   async shippingToBeVisible() {
-    await expect(this.page.locator(this.shippingInfo())).toBeVisible();
+    await this.elementToBeVisible(this.shippingInfo());
   }
 
   async verifySubtotal(subtotal) {
-    await expect(this.page.locator(this.summarySubtotalLabel))
-        .toHaveText(`Item total: $${subtotal}`);
+    await this.toHaveText(this.summarySubtotalLabel,
+        `Item total: $${subtotal}`);
   }
 
   async calculateTax(subtotal) {
@@ -43,19 +43,17 @@ exports.PaymentPage = class PaymentPage {
   }
   async verifyTax(subtotal) {
     const tax = await this.calculateTax(subtotal);
-    await expect(this.page.locator(this.summaryTaxLabel))
-        .toHaveText(`Tax: $${tax}`);
+    await this.toHaveText(this.summaryTaxLabel, `Tax: $${tax}`);
   }
 
   async verifyGrandTotal(subtotal) {
     const tax = await this.calculateTax(subtotal);
     const grandTotal = (parseFloat(tax)+parseFloat(subtotal)).toFixed(2);
-    await expect(this.page.locator(this.summaryTotalLabel))
-        .toHaveText(`Total: $${grandTotal}`);
+    await this.toHaveText(this.summaryTotalLabel, `Total: $${grandTotal}`);
   }
 
   async finishPayment() {
-    await this.page.locator(this.finishButton).click();
+    await this.click(this.finishButton);
     const confirmPage = new SuccessPage(this.page);
     return confirmPage;
   }

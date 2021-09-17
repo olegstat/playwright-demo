@@ -1,9 +1,9 @@
-const {expect} = require('@playwright/test');
+const {BasePage} = require('./base-page');
 const {CartPage} = require('./cart-page');
 
-exports.ProductsPage = class ProductsPage {
+exports.ProductsPage = class ProductsPage extends BasePage {
   constructor(page) {
-    this.page = page;
+    super(page);
 
     this.productsList = '.inventory_list';
     this.basket = '.shopping_cart_link';
@@ -16,19 +16,19 @@ exports.ProductsPage = class ProductsPage {
   }
 
   async productsToBeVisible() {
-    await expect(this.page.locator(this.productsList)).toBeVisible();
+    await this.elementToBeVisible(this.productsList);
   }
 
   async openCart() {
-    await this.page.click(this.basket);
+    await this.click(this.basket);
     const cartPage = new CartPage(this.page);
     return cartPage;
   }
 
   async getProducts() {
     const products = {};
-    await this.page.waitForSelector(this.inventoryContainer);
-    const inventoryItems = await this.page.$$(this.inventoryItem);
+    await this.waitForSelector(this.inventoryContainer);
+    const inventoryItems = await this.findElements(this.inventoryItem);
     for (const item of inventoryItems) {
       let itemName = await item.$(this.inventoryItemName);
       itemName = await itemName.textContent();
@@ -52,7 +52,7 @@ exports.ProductsPage = class ProductsPage {
             Math.random() * productNames.length,
         )
     ];
-    await this.page.click(products[randomProductName].add);
+    await this.click(products[randomProductName].add);
     return randomProductName;
   }
 
@@ -62,7 +62,7 @@ exports.ProductsPage = class ProductsPage {
   }
 
   async logout() {
-    await this.page.locator(this.burgerButton).click();
-    await this.page.locator(this.logoutButton).click();
+    await this.click(this.burgerButton);
+    await this.click(this.logoutButton);
   }
 };

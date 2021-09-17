@@ -1,11 +1,12 @@
-const {expect} = require('@playwright/test');
+const {BasePage} = require('./base-page');
 const {CheckoutInfoPage} = require('./checkout-info-page');
 
-exports.CartPage = class CartPage {
+exports.CartPage = class CartPage extends BasePage {
   constructor(page) {
-    this.page = page;
+    super(page);
 
     this.itemName = '.inventory_item_name';
+    this.itemPrice = '.inventory_item_price';
     this.itemCartContainer = '.cart_item';
     this.continueShoppingButton = '#continue_shopping';
     this.checkoutButton = '#checkout';
@@ -14,26 +15,26 @@ exports.CartPage = class CartPage {
   }
 
   async checkItemInCart(item) {
-    await expect(this.page.locator(this.itemName)).toHaveText(item);
+    await this.toHaveText(this.itemName, item);
   }
 
   async continueShopping() {
-    await this.page.locator(this.continueShoppingButton).click();
+    await this.click(this.continueShoppingButton);
   }
 
   async removeItem(item) {
-    await this.page.locator(this.removeButton(item)).click();
+    await this.click(this.removeButton(item));
   }
 
   async proceedToCheckout() {
-    await this.page.locator(this.checkoutButton).click();
+    await this.click(this.checkoutButton);
     const checkoutInfoPage = new CheckoutInfoPage(this.page);
     return checkoutInfoPage;
   }
 
   async calculateSubtotal() {
     const priceList = [];
-    const priceSelectors = await this.page.$$('.inventory_item_price');
+    const priceSelectors = await this.findElements(this.itemPrice);
     for (const selector of priceSelectors) {
       let priceEntry = await selector.textContent();
       priceEntry = await priceEntry.split('$')[1];
