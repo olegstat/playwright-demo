@@ -108,6 +108,8 @@ npm run lint
 
 ### UI Automation Framework (Playwright)
 
+![image](https://user-images.githubusercontent.com/34889426/133845849-434edc89-53ce-4f0c-9352-8287995c449f.png)
+
 **./e2e/** - root folder
 
 -- **./e2e/pages/** - Page objects
@@ -119,6 +121,8 @@ npm run lint
 **./test-results/** - test reports and artifacts
 
 ### API Automation Framework (Postman, Newman)
+
+![image](https://user-images.githubusercontent.com/34889426/133845882-ec0c2624-053c-4528-884e-68454297502d.png)
 
 **./api/** - root folder
 
