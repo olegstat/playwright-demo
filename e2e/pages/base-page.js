@@ -25,11 +25,6 @@ exports.BasePage = class BasePage {
     return elements;
   }
 
-  async findElement(el) {
-    const element = await item.$(el);
-    return element;
-  }
-
   async elementToBeVisible(el) {
     await expect(this.page.locator(el)).toBeVisible();
   }
