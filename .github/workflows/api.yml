@@ -1,0 +1,15 @@
+name: API
+on: [push]
+jobs:
+  api-tests:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+      
+        - uses: actions/setup-node@v2-beta
+
+        - name: Install Newman
+          run: npm install -g newman
+        
+        - name: Run API tests
+          run: npm run test:api

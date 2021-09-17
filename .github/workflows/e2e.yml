@@ -1,0 +1,42 @@
+name: E2E
+on: [push]
+jobs:
+  e2e-tests:
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v2
+
+        - uses: actions/setup-node@v1
+          with:
+              node-version: 12
+
+        - uses: microsoft/playwright-github-action@v1
+
+        - name: Install Playwright Dependencies
+          run: npx playwright install-deps
+        
+        - name: Cache node modules
+          uses: actions/cache@v1
+          with:
+            path: ~/ .npm
+            key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+            restore-keys: |
+              ${{ runner.os }}-node-
+        
+        - name: Install NPM Dependencies
+          run: npm ci --prefer-offline --no-audit
+          
+        - name: Run Tests In Chrome
+          run: npm run test:headless:chrome
+        
+        - name: Run Tests In Firefox
+          run: npm run test:headless:firefox
+        
+        - name: Run Tests In Safari
+          run: npm run test:headless:safari
+        
+        - name: Run Tests In Mobile Chrome
+          run: npm run test:headless:chrome:mobile
+        
+        - name: Run Tests In Mobile Safari
+          run: npm run test:headless:safari:mobile
