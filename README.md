@@ -1,3 +1,4 @@
+[![Commit](https://github.com/olegstat/playwright-demo/actions/workflows/commit.yml/badge.svg)](https://github.com/olegstat/playwright-demo/actions/workflows/commit.yml)
 # Automation Framework Demo
 
 This repo contains:
