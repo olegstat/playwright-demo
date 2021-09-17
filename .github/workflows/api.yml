@@ -1,8 +1,8 @@
 name: API
 on: [push]
+needs: E2E
 jobs:
 api-tests:
-      needs: e2e-tests
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v2

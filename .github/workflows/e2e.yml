@@ -1,8 +1,8 @@
 name: E2E
 on: [push]
+needs: Linter
 jobs:
   e2e-tests:
-      needs: linter
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v2
