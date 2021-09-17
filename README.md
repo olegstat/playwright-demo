@@ -1,4 +1,4 @@
-[![Commit](https://github.com/olegstat/playwright-demo/actions/workflows/commit.yml/badge.svg)](https://github.com/olegstat/playwright-demo/actions/workflows/commit.yml)
+Latest commit status (Linter, E2E, API tests): [![Commit](https://github.com/olegstat/playwright-demo/actions/workflows/commit.yml/badge.svg)](https://github.com/olegstat/playwright-demo/actions/workflows/commit.yml)
 # Automation Framework Demo
 
 This repo contains:
