@@ -1,38 +1,39 @@
 Test results for the latest commit:
-[![Linter](https://github.com/olegstat/playwright-demo/actions/workflows/lint.yml/badge.svg)](https://github.com/olegstat/playwright-demo/actions/workflows/lint.yml)
+[![Linter](https://github.com/olegstat/playwright-demo/actions/workflows/lint.yml/badge.svg)pr](https://github.com/olegstat/playwright-demo/actions/workflows/lint.yml)
 [![E2E](https://github.com/olegstat/playwright-demo/actions/workflows/e2e.yml/badge.svg)](https://github.com/olegstat/playwright-demo/actions/workflows/e2e.yml)
 [![API](https://github.com/olegstat/playwright-demo/actions/workflows/api.yml/badge.svg)](https://github.com/olegstat/playwright-demo/actions/workflows/api.yml)
+
 # Automation Framework Demo
 
 This repo contains:
+
 - The UI automation framework for the [saucedemo.com](https://www.saucedemo.com/) using the **Playwright** and **JS**, performing the purchase flow. Playwright docs: [playwright.dev](https://playwright.dev/)
 - The API automation framework of the Users endpoint from [gorest.co.in](https://gorest.co.in/) using **Postman** and **Newman**. **JS** is used for writing the scripts and tests as well. Newman docs: [newman](https://learning.postman.com/docs/running-collections/using-newman-cli/command-line-integration-with-newman/)
-
-
 
 ## Features
 
 **Common**:
-- Integration with CI/CD (Github Actions): E2E, API and Linter tests are executed in the cloud each time the **main** branch is synchronized (on every commit). Email notifications on test run fail.
-- All frameworks are in the same repo
-- NPM used as the package manager gives the possibility to customize the run scripts and integrate with a wide variety of tech, as well as make the proejct setup really easy and straightforward
-- Linter tests are executed on each commit. It is possible to run them manually from the command line as well
 
+- Integration with CI/CD (Github Actions): E2E, API, and Linter tests are executed in the cloud each time the **main** branch is synchronized (on every commit). Email notifications on test run fail.
+- All frameworks are in the same repo
+- NPM used as the package manager gives the possibility to customize the run scripts and integrate with a wide variety of tech, as well as make the project setup straightforward
+- Linter tests are executed on each commit. It is possible to run them manually from the command line as well
 
 **Playwright UI Automation Framework**:
 
 - Multiple browsers support: Chrome, Firefox, Safari, as well as mobile versions
-- Parametrized test execution: headed/headless run,  number of retries, number of workers for parrallel execution, etc. 
-- Automatic async/await eliminates the need of waits
+- Parametrized test execution: headed/headless run,  number of retries, number of workers for parallel execution, etc.
+- Automatic async/await eliminates the need for waits
 - Page Object Model used as the test design pattern. JS classes are used as page objects
 - Extent HTML reports, as well as console reports, useful for CI/CD execution
 - Screenshots on failure
-- Video recordings on first retry
+- Video recordings on the first retry
 - Trace recording for failed tests
 - Integration with CI/CD
 - many more
 
 **Postman/Newman API Framework:**
+
 - Possibility to run from the console
 - HTML and console reports
 - Random input data generation
@@ -40,14 +41,11 @@ This repo contains:
 - Pre-request scripts
 - Integration with CI/CD
 
-
-
-
 ## Installation
 
-This project uses the **Node.js** library and **NPM** as package manager, so install the latest version of the Node.js first - [Install Node.js](https://nodejs.org/en/download/).
+This project uses the **Node.js** library and **NPM** as a package manager, so install the latest version of the Node.js first - [Install Node.js](https://nodejs.org/en/download/).
 
-After the installation, clone the github repo and run the following command to install all required dependencies.
+After the installation, clone the GitHub repo and run the following command to install all required dependencies.
 
 ```bash
 npm install
@@ -102,9 +100,7 @@ npm run test:api:save-report
 npm run lint
 ```
 
-
 ## Project Structure
-
 
 ### UI Automation Framework (Playwright)
 
@@ -129,7 +125,8 @@ npm run lint
 -- **./api/reports/** - HTML reports
 
 ### Other
-It is possible to modify the run scripts from the **./package.json** file in the project root.
+
+It is possible to modify the run scripts from the **./package.JSON** file in the project root.
 
 Playwright configs are located at **./playwright.config.js**.
 
