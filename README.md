@@ -1,5 +1,5 @@
 Test results for the latest commit:
-[![Linter](https://github.com/olegstat/playwright-demo/actions/workflows/lint.yml/badge.svg)pr](https://github.com/olegstat/playwright-demo/actions/workflows/lint.yml)
+[![Linter](https://github.com/olegstat/playwright-demo/actions/workflows/lint.yml/badge.svg)](https://github.com/olegstat/playwright-demo/actions/workflows/lint.yml)
 [![E2E](https://github.com/olegstat/playwright-demo/actions/workflows/e2e.yml/badge.svg)](https://github.com/olegstat/playwright-demo/actions/workflows/e2e.yml)
 [![API](https://github.com/olegstat/playwright-demo/actions/workflows/api.yml/badge.svg)](https://github.com/olegstat/playwright-demo/actions/workflows/api.yml)
 
