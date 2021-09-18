@@ -355,6 +355,69 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "It is not possible to add a new user if email exists",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Status code is 422\", function () {\r",
+											"    pm.response.to.have.status(422);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"{{name}}\",\r\n    \"gender\": \"{{gender}}\",\r\n    \"email\": \"{{email}}\",\r\n    \"status\": \"{{status}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{URI}}/public/v1/users",
+									"host": [
+										"{{URI}}"
+									],
+									"path": [
+										"public",
+										"v1",
+										"users"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -521,6 +584,67 @@
 							"response": []
 						},
 						{
+							"name": "Name updated, other fields are correct",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Name updated\", function () {\r",
+											"    pm.expect(jsonData.data.name).to.eql(pm.environment.get(\"name\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Email is correct\", function () {\r",
+											"    pm.expect(jsonData.data.email).to.eql(pm.environment.get(\"email\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Gender is correct\", function () {\r",
+											"    pm.expect(jsonData.data.gender).to.eql(pm.environment.get(\"gender\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Status is correct\", function () {\r",
+											"    pm.expect(jsonData.data.status).to.eql(pm.environment.get(\"status\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URI}}/public/v1/users/{{id}}",
+									"host": [
+										"{{URI}}"
+									],
+									"path": [
+										"public",
+										"v1",
+										"users",
+										"{{id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Update email",
 							"event": [
 								{
@@ -587,6 +711,67 @@
 										}
 									}
 								},
+								"url": {
+									"raw": "{{URI}}/public/v1/users/{{id}}",
+									"host": [
+										"{{URI}}"
+									],
+									"path": [
+										"public",
+										"v1",
+										"users",
+										"{{id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Email updated, other fields are correct",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Email updated\", function () {\r",
+											"    pm.expect(jsonData.data.email).to.eql(pm.environment.get(\"email\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Name is correct\", function () {\r",
+											"    pm.expect(jsonData.data.name).to.eql(pm.environment.get(\"name\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Gender is correct\", function () {\r",
+											"    pm.expect(jsonData.data.gender).to.eql(pm.environment.get(\"gender\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Status is correct\", function () {\r",
+											"    pm.expect(jsonData.data.status).to.eql(pm.environment.get(\"status\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
 								"url": {
 									"raw": "{{URI}}/public/v1/users/{{id}}",
 									"host": [
@@ -686,6 +871,67 @@
 							"response": []
 						},
 						{
+							"name": "Gender updated, other fields are correct",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Gender updated\", function () {\r",
+											"    pm.expect(jsonData.data.gender).to.eql(pm.environment.get(\"gender\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Email is correct\", function () {\r",
+											"    pm.expect(jsonData.data.email).to.eql(pm.environment.get(\"email\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Name is correct\", function () {\r",
+											"    pm.expect(jsonData.data.name).to.eql(pm.environment.get(\"name\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Status is correct\", function () {\r",
+											"    pm.expect(jsonData.data.status).to.eql(pm.environment.get(\"status\"));\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URI}}/public/v1/users/{{id}}",
+									"host": [
+										"{{URI}}"
+									],
+									"path": [
+										"public",
+										"v1",
+										"users",
+										"{{id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "Update status",
 							"event": [
 								{
@@ -753,6 +999,57 @@
 										}
 									}
 								},
+								"url": {
+									"raw": "{{URI}}/public/v1/users/{{id}}",
+									"host": [
+										"{{URI}}"
+									],
+									"path": [
+										"public",
+										"v1",
+										"users",
+										"{{id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Status updated, other fields are correct",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Status updated\", function () {\r",
+											"    pm.expect(jsonData.data.status).to.eql(pm.environment.get(\"status\"));\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
 								"url": {
 									"raw": "{{URI}}/public/v1/users/{{id}}",
 									"host": [
@@ -859,6 +1156,69 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "All fields are correct after updating",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const jsonData = pm.response.json();\r",
+											"\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Email is correct\", function () {\r",
+											"    pm.expect(jsonData.data.email).to.eql(pm.environment.get(\"email\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Name is correct\", function () {\r",
+											"    pm.expect(jsonData.data.name).to.eql(pm.environment.get(\"name\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Gender is correct\", function () {\r",
+											"    pm.expect(jsonData.data.gender).to.eql(pm.environment.get(\"gender\"));\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Status is correct\", function () {\r",
+											"    pm.expect(jsonData.data.status).to.eql(pm.environment.get(\"status\"));\r",
+											"});\r",
+											"\r",
+											"pm.environment.set('id', jsonData.data.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URI}}/public/v1/users/{{id}}",
+									"host": [
+										"{{URI}}"
+									],
+									"path": [
+										"public",
+										"v1",
+										"users",
+										"{{id}}"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -929,6 +1289,49 @@
 							],
 							"request": {
 								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{URI}}/public/v1/users/{{id}}",
+									"host": [
+										"{{URI}}"
+									],
+									"path": [
+										"public",
+										"v1",
+										"users",
+										"{{id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "It is not possible to delete the user again",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 404\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
 								"header": [],
 								"url": {
 									"raw": "{{URI}}/public/v1/users/{{id}}",
